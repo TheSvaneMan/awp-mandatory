@@ -31,13 +31,13 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-slate-100 text-slate-800 font-sans p-4">
-        <header className="pb-3 mb-4 border-b-2">
-          <Link to="/" className="hover:underline text-blue-600">
+      <body className="bg-slate-800 text-slate-100 font-mono p-4">
+        <header className="grid grid-cols-2 justify-end px-2 py-10 border-b-2">
+          <Link to="/" className="hover:underline bg-indigo-800 p-4 rounded-lg">
             Home
           </Link>
-          <Link to="/books/new" className="ml-3 hover:underline text-blue-600">
-            New book
+          <Link to="/snippets/new" className="ml-3 hover:underline bg-indigo-600 p-4 rounded-lg">
+            New Snippet
           </Link>
         </header>
         <Outlet />

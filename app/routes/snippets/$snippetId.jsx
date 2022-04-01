@@ -3,22 +3,22 @@ import connectDb from "~/db/connectDb.server.js";
 
 export async function loader({ params }) {
   const db = await connectDb();
-  const book = await db.models.Book.findById(params.bookId);
-  if (!book) {
-    throw new Response(`Couldn't find book with id ${params.bookId}`, {
+  const snippet = await db.models.Snippet.findById(params.snippetId);
+  if (!snippet) {
+    throw new Response(`Couldn't find book with id ${params.snippetId}`, {
       status: 404,
     });
   }
-  return json(book);
+  return json(snippet);
 }
 
 export default function BookPage() {
-  const book = useLoaderData();
+  const snippet = useLoaderData();
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">{book.title}</h1>
+      <h1 className="text-2xl font-bold mb-4">{snippet.title}</h1>
       <code>
-        <pre>{JSON.stringify(book, null, 2)}</pre>
+        <pre>{JSON.stringify(snippet, null, 2)}</pre>
       </code>
     </div>
   );
