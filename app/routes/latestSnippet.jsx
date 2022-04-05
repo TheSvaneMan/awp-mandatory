@@ -71,9 +71,9 @@ export default function Index() {
         <input id="sortByTitle" name="sortByTitle" value="A-Z" type="submit" className="hover:-translate-y-2  transition hover:bg-violet-900 bg-violet-600 rounded-lg p-4" />
         <input id="sortByLastUpdated" name="sortByUpdatedAt" value="Last updated" type="submit" className="hover:-translate-y-2 transition hover:bg-violet-900 bg-violet-600 rounded-lg p-4" />
       </div>
-  
         <ul className="grid grid-cols-1 space-y-5 ">
-        {snippets.map((snippet) => {
+          {snippets.length === 0 ? <div className='mt-10 grid bg-blue-500 text-white p-4 rounded-lg'><p className='animate-pulse transition delay-150 '>You currently have no code snippets, click here to add a new one to get started :)</p>
+          <Link to="/snippets/new" className="mt-5 grid justify-items-center hover:bg-orange-400 bg-orange-600 p-2 rounded-lg">Create new Snippet</Link></div> : snippets.map((snippet) => {
           return (
             <li key={snippet._id} className="grid grid-cols-1 align-middle bg-indigo-700 rounded-lg" >
               <Link

@@ -30,7 +30,7 @@ const snippetSchema = new Schema({
     minLength: [5, "That's too short"],
     maxLength: [240, "That's too long"],
   },
-  tags: [{type: String, minLenght: [1, "That is too shorts"], maxLength: [8, "That is too long"], lowercase: true}],
+  tags: [{type: String, minLenght: [1, "That is too shorts"], maxLength: [10, "That is too long"], lowercase: true}],
   favorite: {
     type: Boolean,
     default: false
