@@ -31,12 +31,15 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-slate-800 text-slate-100 font-mono p-4">
-        <header className="grid grid-cols-2 justify-end px-2 py-10 border-b-2">
-          <Link to="/" className="hover:underline bg-indigo-800 p-4 rounded-lg">
+      <body className="grid bg-slate-800 text-slate-100 font-mono p-4">
+        <header className="grid grid-cols-3 place-content-evenly px-2 py-5 border-b-2">
+          <Link to="/" className="hover:underline bg-indigo-900 p-2 rounded-lg">
             Home
           </Link>
-          <Link to="/snippets/new" className="ml-3 hover:underline bg-indigo-600 p-4 rounded-lg">
+          <Link to="/seed" className="ml-3 hover:underline bg-red-600 p-2 rounded-lg">
+            ReSeed DB
+          </Link>
+          <Link to="/snippets/new" className="ml-3 hover:underline bg-indigo-600 p-2 rounded-lg">
             New Snippet
           </Link>
         </header>

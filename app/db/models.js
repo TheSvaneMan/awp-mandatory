@@ -7,6 +7,10 @@ const snippetSchema = new Schema({
     type: String,
     required: true,
     minLength: [3, "That's too short"],
+    validate: {
+      validator: title => title !== '',
+      message: `Title cannot be an empty`
+    }
   },
   language: {
     type: String,
@@ -17,20 +21,28 @@ const snippetSchema = new Schema({
   code: {
     type: String,
     required: true,
-    minLength: [3, "That's too short"],
-    maxLength: [120, "That's too long"],
+    minLength: [10, "That's too short"],
+    maxLength: [800, "That's too long"],
   },
   description: {
     type: String,
     required: true,
-    minLength: [3, "That's too short"],
-    maxLength: [80, "That's too long"],
+    minLength: [5, "That's too short"],
+    maxLength: [240, "That's too long"],
   },
+  tags: [{type: String, minLenght: [1, "That is too shorts"], maxLength: [8, "That is too long"], lowercase: true}],
   favorite: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
-  uploaded: {
-    type: Date
+  createdAt: {
+    type: Date,
+    immutable: true,
+    default: () => Date.now()
+  },
+  updatedAt: {
+    type: Date,
+    default: () => Date.now()
   }
 });
 

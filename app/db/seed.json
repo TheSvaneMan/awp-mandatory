@@ -1,0 +1,63 @@
+[
+        {
+        "title": "Snippet A",
+        "language": "Javascript",
+        "code": "const fruits = ['Banana', 'Orange', 'Apple', 'Mango']; document.getElementById('demo').innerHTML = fruits.toString();",
+        "description": "The JavaScript method toString() converts an array to a string of (comma separated) array values.",
+        "tags": [
+            "JavaScript",
+            "Array",
+            "String"
+        ],
+        "favorite": false
+    },
+    {
+        "title": "Snippet C",
+        "language": "Javascript",
+        "code": "Math.random();",
+        "description": "Math.random() returns a random number between 0 (inclusive),  and 1 (exclusive):",
+        "tags": [
+            "JavaScript",
+            "Random",
+            "Number"
+        ],
+        "favorite": true
+    },
+    {
+        "title": "Snippet D",
+        "language": "Javascript",
+        "code": "let str = 'Please locate where 'locate' occurs!'; str.indexOf('locate');",
+        "description": "The indexOf() method returns the index of (the position of) the first occurrence of a specified text in a string:",
+        "tags": [
+            "JavaScript",
+            "String",
+            "Index"
+        ],
+        "favorite": false
+    },
+    {
+        "title": "Snippet Z",
+        "language": "Javascript",
+        "code": "const cars = ['Saab', 'Volvo', 'BMW'];",
+        "description": "in 2015, JavaScript introduced an important new keyword: const. It has become a common practice to declare arrays using const:",
+        "tags": [
+            "JavaScript",
+            "Array",
+            "Const",
+            "ES6"
+        ],
+        "favorite": true
+    },
+    {
+        "title": "Snippet O",
+        "language": "Javascript",
+        "code": "function myFunction(p1, p2) {return p1 * p2;   // The function returns the product of p1 and p2}",
+        "description": "A JavaScript function is a block of code designed to perform a particular task. A JavaScript function is executed when 'something' invokes it (calls it).",
+        "tags": [
+            "JavaScript",
+            "Function",
+            "Important"
+        ],
+        "favorite": true
+    }
+]
