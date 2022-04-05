@@ -10,10 +10,9 @@ export async function loader({ params }) {
 }
 
 export async function action({ request }) {
-    const form = await request.formData();
-    const params = form._fields;
+  const form = await request.formData();
+  const params = form._fields;
   const db = await connectDb();
-  console.log(params);
     try {
         // Delete all Snippets on Database if not already empty
         if (params.snippetCount.toString() !== '0') {
@@ -22,7 +21,6 @@ export async function action({ request }) {
           const insetDefaultSeedSnippets = await db.models.Snippet.insertMany(snippetSeed);
           return redirect("/");
         } else {
-          console.log("Empty DB insert");
           const insetDefaultSeedSnippets = await db.models.Snippet.insertMany(snippetSeed);
           return redirect("/");
         }
@@ -40,14 +38,12 @@ export default function SeedSnippets() {
     const snippetJSON = snippetSeed;
     return (
         <Form method='POST' action='' className='grid grid-cols-1 justify-items-center bg-gradient-to-r from-indigo-500 via-blue-900 to-indigo-500 text-white rounded-lg shadow-lg p-4 mt-10'>
-           
-            <h1 className='text-2xl mb-5'>Seeding the database</h1>
-        <h2 className='text-xl mb-10'>You currently have <b>{snippetCount}</b> snipppets in your database.</h2>
-        {snippetCount === 0 ? <>
-          <p className='mb-4 text-lg'>Would you like to repopulate your database with <b>{snippetJSON.length}</b> default snippets?</p></> : <>
-          <p className='mb-4 text-lg'>Do you want to delete them and re-seed the database with <b>{snippetJSON.length}</b> default snippets?</p>
-          <p className='text-red-500 bg-black rounded-lg p-4'>You are about to reseed your database, are you sure you want to continue? This action is irreversible.</p></> }
-            
+          <h1 className='text-2xl mb-5'>Seeding the database</h1>
+          <h2 className='text-xl mb-10'>You currently have <b>{snippetCount}</b> snipppets in your database.</h2>
+          {snippetCount === 0 ? <>
+            <p className='mb-4 text-lg'>Would you like to repopulate your database with <b>{snippetJSON.length}</b> default snippets?</p></> : <>
+            <p className='mb-4 text-lg'>Do you want to delete them and re-seed the database with <b>{snippetJSON.length}</b> default snippets?</p>
+            <p className='text-red-500 bg-black rounded-lg p-4'>You are about to reseed your database, are you sure you want to continue? This action is irreversible.</p></> } 
             <div id="seed-options" className='grid grid-cols-2 mt-5'>
                 <input type="hidden" id="snippetCount" name="snippetCount" value={snippetCount} />
                 <input type="submit" name="acceptSeed" id="acceptSeed" value="Accept" className="ml-3 transition hover:bg-red-600 bg-red-800  p-4 rounded-lg" />

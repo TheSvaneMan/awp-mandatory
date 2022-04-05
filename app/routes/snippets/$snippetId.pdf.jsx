@@ -5,7 +5,6 @@ export async function loader({ params }) {
   const db = await connectDb();
   const snippet = await db.models.Snippet.findById(params.snippetId);
   const pdf = await createPDF(snippet);
-  console.log(pdf.document)
   return new Response(pdf.document, {
     status: 200,
     headers: {

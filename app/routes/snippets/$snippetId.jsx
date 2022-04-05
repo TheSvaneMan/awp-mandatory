@@ -24,15 +24,15 @@ export async function action({ request }) {
     // Determine Form Action
     const actionState = determineAction(params);
       // Handle Update Action
-    if (actionState === 'updateSnippet') {
+    switch (actionState){
+      case "updateSnippet":
         const snippetUpdate = await updateSnippet(db, params, snippetId);
         return ("/");
-      } 
-      else if (actionState === 'deleteSnippet') {
+      case "deleteSnippet":
         // Delete specific snippet
         const snippetDelete = await deleteSnippet(db, snippetId);
         return redirect("/");
-      }  
+    }  
   } catch (error) {
     return json(
       {errors: error.errors, values: Object.fromEntries(form)},
