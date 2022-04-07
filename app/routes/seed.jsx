@@ -18,10 +18,10 @@ export async function action({ request }) {
         if (params.snippetCount.toString() !== '0') {
           const deletedManySnippets = await db.models.Snippet.deleteMany();
           // Inset Default Seed to Database
-          const insetDefaultSeedSnippets = await db.models.Snippet.insertMany(snippetSeed);
+          const insertDefaultSeedSnippets = await db.models.Snippet.insertMany(snippetSeed);
           return redirect("/");
         } else {
-          const insetDefaultSeedSnippets = await db.models.Snippet.insertMany(snippetSeed);
+          const insertDefaultSeedSnippets = await db.models.Snippet.insertMany(snippetSeed);
           return redirect("/");
         }
       }   

@@ -3,18 +3,20 @@ import { updateFavorite, determineAction } from '~/db/formActionHandler.js';
 import connectDb from "~/db/connectDb.server.js";
 import { useEffect, useState } from 'react';
 
-export async function loader({ params }) {
+export async function loader() {
   const db = await connectDb();
-  const query = { 'title': { $regex: params.searchSnippet, $options: 'i' } }
+  const query = { "favorite": false}
   const snippets = await db.models.Snippet.find(query);
   return snippets;
 }
+
+
 // -------- Form Action Handler -------- //
 export async function action({ request }) {
   const form = await request.formData();
   const params = form._fields;
   const db = await connectDb();
-    try {
+  try {
     // Determine Form Action
     const actionState = determineAction(params);
     switch (actionState) {
@@ -48,29 +50,28 @@ export async function action({ request }) {
 export default function Index() {
   const snippetsData = useLoaderData();
   const [snippets, setSnippets] = useState(snippetsData);
+
   useEffect(() => setSnippets(snippetsData), [snippetsData]);
 
   return (
     <div id="home">
       <h1 className="text-2xl font-bold mb-4">Remix + Mongoose</h1>
-      <h2 className="text-lg font-bold mb-3">
-        A code snippet web app
-      </h2>
+      <h2 className='text-lg text-gray-200'> A Code Snippet Web App</h2>
+      <h3 className=' text-orange-400 mb-4'>Tailored for Mobile</h3>
       <Form method='POST'>
       <div id="searchBar" className='grid grid-cols-1 mb-5 space-y-2'>
           <input type="text" id="searchValue" name="searchValue" placeholder='search snippet by title' className='text-black p-4 rounded-lg' />
           <input type="submit" id="submitSearch" name="submitSearch" value="search" placeholder='search snippet by title' className='bg-slate-900 text-white p-4 rounded-lg' />
       </div>
-      <div id="filters" className='grid grid-cols-2 place-content-evenly gap-4 mb-5'>
+        <div id="filters" className='grid grid-cols-2 place-content-evenly gap-4 mb-5'>
         <input id="defaultState" name="defaultState" type="submit" value="Default"  className="hover:-translate-y-2 transition hover:bg-slate-800 bg-blue-600 rounded-lg p-4"/>
         <input id="filterFavorites" name="filterFavorites" type="submit" value="Favorites"  className="hover:-translate-y-2 transition hover:bg-violet-900 bg-violet-600 rounded-lg p-4"/>
         <input id="sortByTitle" name="sortByTitle" value="A-Z" type="submit" className="hover:-translate-y-2  transition hover:bg-violet-900 bg-violet-600 rounded-lg p-4" />
         <input id="sortByLastUpdated" name="sortByUpdatedAt" value="Last updated" type="submit" className="hover:-translate-y-2 transition hover:bg-violet-900 bg-violet-600 rounded-lg p-4" />
-        </div>
-        <p className="mb-4"><i>Your search results</i></p>
-       
+      </div>
+      <p className="mb-4"><i>Your unfavorited code snippets.</i></p>
         <ul className="grid grid-cols-1 space-y-5 ">
-          {snippets.length === 0 ? <div><h5>No snippets found matching that search</h5></div> : snippets.map((snippet) => {
+          {snippets.length === 0 ? <div className='grid'><p className='mb-5'>You have favorited all your code snippets. Good for you. :)</p><Link to="/"  className="hover:-translate-y-2  transition hover:bg-violet-900 bg-violet-600 rounded-lg p-4">See all snippets</Link></div> :  snippets.map((snippet) => {
           return (
             <li key={snippet._id} className="grid grid-cols-1 align-middle bg-indigo-700 rounded-lg" >
               <Link
@@ -94,7 +95,7 @@ export default function Index() {
               </div>
             </li>
           );
-        }) }
+        })}
       </ul>
       </Form> 
     </div>
