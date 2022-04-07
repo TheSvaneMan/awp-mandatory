@@ -45,12 +45,17 @@ export default function SnippetPage() {
   const snippet = useLoaderData();
   const [tags, setTags] = useState(snippet.tags);
 
+  // Add Tags
   const handleTag = (e) => {
-    e.preventDefault();
-    const tag = document.getElementById('tag').value;
-    if (tag !== '') {
-      setTags([...tags, tag]);
-    }
+      e.preventDefault();
+      const tag = document.getElementById('tag').value;
+      // Check if tag already exists, if it does - do nothing
+      const hasMatch = tags.some(function (storedTag) {
+        return storedTag == tag
+      });
+      if (!hasMatch) {
+        setTags([...tags, tag]);
+      }
   }
 
   const removeTag = (e) => {
@@ -139,11 +144,17 @@ export default function SnippetPage() {
 export function CatchBoundary() {
   const caught = useCatch();
   return (
-    <div>
-      <h1>
-        {caught.status} {caught.statusText}
-      </h1>
-      <h2>{caught.data}</h2>
+    <div className='grid grid-cols-1 bg-red-600 p-4 rounded-lg shadow-lg mt-5 space-y-10'>
+      <h3>Whoopsies</h3>
+      <div className='px-10 animate-pulse transition delay-300'> 
+        <h1>
+          {caught.status} {caught.statusText}
+        </h1>
+        <h2><b>{caught.data}</b></h2>
+      </div>
+      <Link to="/" className="ml-3 transition hover:bg-slate-500 bg-slate-600 p-4 rounded-lg">
+          Return to Home Page :)
+      </Link>
     </div>
   );
 }

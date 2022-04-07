@@ -39,7 +39,13 @@ export default function CreateSnippet() {
   const handleTag = (e) => {
       e.preventDefault();
       const tag = document.getElementById('tag').value;
-      setTags([...tags, tag]);
+      // Check if tag already exists, if it does - do nothing
+      const hasMatch = tags.some(function (storedTag) {
+        return storedTag == tag
+      });
+      if (!hasMatch) {
+        setTags([...tags, tag]);
+      }
   }
   
   const removeTag = (e) => {
@@ -48,7 +54,7 @@ export default function CreateSnippet() {
     setTags(updatedTags);
   }
   return (
-    <div className='grid grid-cols-1 justify-items-center bg-indigo-700 p-2 rounded-lg mt-5'>
+    <div className='grid grid-cols-1 max-w-md bg-slate-700 p-2 rounded-lg mt-5'>
       <h1 className='text-gray-200 text-2xl mb-2'>Create new code snippet</h1>
       <Form method="POST" className='grid grid-cols-1 bg-slate-900 rounded-lg p-2 space-y-5'>
         <div className="formElement grid">
@@ -92,16 +98,16 @@ export default function CreateSnippet() {
             Tags
           </label>
           <input type="hidden" value={tags} id="tags" name="tags" />
-          <ul className={tags.length === 0 ? "grid grid-cols-1 min-w-full text-orange-600" : "grid min-w-full grid-cols-4"}>
+          <div className={tags.length === 0 ? "grid grid-cols-1 text-orange-600" : "grid grid-cols-4"}>
           {
-            tags.length === 0 ? <p>There are currently no tags for this code snippet.</p> : tags.map(tag => {
+            tags.length === 0 ? <p>No tags for this code snippet.</p> : tags.map(tag => {
               return (
                 <button key={tag} className='justify-items-center ml-2 mb-2 p-2 align-middle bg-lime-600 rounded-lg text-white' value={tag} onClick={removeTag}>
                     {tag}
                 </button>)
             })
           }
-          </ul>
+          </div>
           {actionData?.errors.tags && (
             <p className="text-red-500">{actionData?.errors.tag.message}</p>
           )}
