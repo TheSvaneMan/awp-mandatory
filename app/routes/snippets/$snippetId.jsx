@@ -144,7 +144,7 @@ export default function SnippetPage() {
 export function CatchBoundary() {
   const caught = useCatch();
   return (
-    <div className='grid grid-cols-1 bg-red-600 p-4 rounded-lg shadow-lg mt-5 space-y-10'>
+    <div className='grid grid-cols-1 bg-slate-900 p-4 rounded-lg shadow-lg mt-5 space-y-10'>
       <h3>Whoopsies</h3>
       <div className='px-10 animate-pulse transition delay-300'> 
         <h1>
@@ -161,8 +161,17 @@ export function CatchBoundary() {
 
 export function ErrorBoundary({ error }) {
   return (
-    <h1 className="text-red-500 font-bold">
-      {error.name}: {error.message}
-    </h1>
+   
+    <div className='grid grid-cols-1 bg-slate-900 p-4 rounded-lg shadow-lg mt-5 space-y-10'>
+      <h3>Whoopsies, Error found:</h3>
+      <div className='px-10 animate-pulse transition delay-300'> 
+         <h1 className="text-white font-bold">
+            {error.name}: {error.message}
+        </h1>
+      </div>
+      <Link to="/" className="ml-3 transition hover:bg-slate-500 bg-slate-600 p-4 rounded-lg">
+          Return to Home Page :)
+      </Link>
+    </div>
   );
 }
