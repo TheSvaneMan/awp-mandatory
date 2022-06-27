@@ -1,5 +1,4 @@
 import { json } from 'remix';
-import mongoose from 'mongoose';
 
 // -------- Determines Action Request State -------- //
 export function determineAction(params) {
