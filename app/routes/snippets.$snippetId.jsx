@@ -1,11 +1,17 @@
-import { Form, useLoaderData, useCatch, Link } from "@remix-run/react";
+import {
+  Form,
+  Link,
+  isRouteErrorResponse,
+  useLoaderData,
+  useRouteError,
+} from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import { useState, useEffect } from "react";
 import {
   determineAction,
   updateSnippet,
   deleteSnippet,
-} from "~/db/formActionHandler.js";
+} from "~/db/formActionHandler";
 import connectDb from "~/db/connectDb.server.js";
 
 export async function loader({ params }) {
@@ -211,29 +217,6 @@ export default function SnippetPage() {
         </button>
       </div>
     </Form>
-  );
-}
-
-export function CatchBoundary() {
-  const caught = useCatch();
-  return (
-    <div className="grid grid-cols-1 bg-slate-900 p-4 rounded-lg shadow-lg mt-5 space-y-10">
-      <h3>Whoopsies</h3>
-      <div className="px-10 animate-pulse transition delay-300">
-        <h1>
-          {caught.status} {caught.statusText}
-        </h1>
-        <h2>
-          <b>{caught.data}</b>
-        </h2>
-      </div>
-      <Link
-        to="/"
-        className="ml-3 transition hover:bg-slate-500 bg-slate-600 p-4 rounded-lg"
-      >
-        Return to Home Page :)
-      </Link>
-    </div>
   );
 }
 

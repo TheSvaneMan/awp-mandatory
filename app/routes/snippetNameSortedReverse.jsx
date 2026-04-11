@@ -1,6 +1,6 @@
-import { Form, useLoaderData, Link } from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
-import { updateFavorite, determineAction } from "~/db/formActionHandler.js";
+import { updateFavorite, determineAction } from "~/db/formActionHandler";
 import connectDb from "~/db/connectDb.server.js";
 import { useEffect, useState } from "react";
 

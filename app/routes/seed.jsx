@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import {
-  useLoaderData, Link, Form, useCatch } from "@remix-run/react";
+  Form,
+  Link,
+  isRouteErrorResponse,
+  useRouteError,
+  useLoaderData,
+} from "@remix-run/react";
 import { json, redirect } from "@remix-run/node";
 import connectDb from "~/db/connectDb.server";
 import snippetSeed from "~/db/seed.json";
@@ -95,8 +100,8 @@ export default function SeedSnippets() {
   );
 }
 
-export function CatchBoundary() {
-  const caught = useCatch();
+export function ErrorBoundary() {
+  const caught = useRouteError();
   return (
     <div>
       <h1>
@@ -104,13 +109,5 @@ export function CatchBoundary() {
       </h1>
       <h2>{caught.data}</h2>
     </div>
-  );
-}
-
-export function ErrorBoundary({ error }) {
-  return (
-    <h1 className="text-red-500 font-bold">
-      {error.name}: {error.message}
-    </h1>
   );
 }

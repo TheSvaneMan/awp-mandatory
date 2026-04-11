@@ -1,5 +1,4 @@
 import connectDb from "~/db/connectDb.server.js";
-import createPDF from "../../db/pdfCreator";
 
 export async function loader({ params }) {
   const db = await connectDb();

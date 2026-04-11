@@ -1,5 +1,6 @@
 import { renderToString } from "react-dom/server";
 import { RemixBrowser } from "@remix-run/react";
+import { RemixServer } from "@remix-run/react";
 
 export default function handleRequest(
   request,

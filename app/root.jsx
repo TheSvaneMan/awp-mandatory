@@ -1,6 +1,7 @@
 import {
   Links,
   LiveReload,
+  Link,
   Meta,
   Outlet,
   Scripts,
@@ -15,13 +16,14 @@ export const links = () => [
   },
 ];
 
-export function meta() {
-  return {
-    charset: "utf-8",
-    title: "Remix + MongoDB",
-    viewport: "width=device-width,initial-scale=1",
-  };
-}
+export const meta = () => {
+  return [
+    { title: "Remix + Mongoose" },
+    { name: "description", content: "A Code Snippet Web App" },
+    { charSet: "utf-8" },
+    { name: "viewport", content: "width=device-width,initial-scale=1" },
+  ];
+};
 
 export default function App() {
   return (
