@@ -1,58 +1,98 @@
-import { useEffect, useState } from 'react';
-import { useLoaderData, json, Link, Form, redirect, useCatch } from 'remix';
-import connectDb from '~/db/connectDb.server';
+import { useEffect, useState } from "react";
+import {
+  useLoaderData, Link, Form, useCatch } from "@remix-run/react";
+import { json, redirect } from "@remix-run/node";
+import connectDb from "~/db/connectDb.server";
 import snippetSeed from "~/db/seed.json";
 
 export async function loader({ params }) {
-    const db = await connectDb();
-    const currentSnippetAmount = await db.models.Snippet.countDocuments();
-    return json(currentSnippetAmount);
+  const db = await connectDb();
+  const currentSnippetAmount = await db.models.Snippet.countDocuments();
+  return json(currentSnippetAmount);
 }
 
 export async function action({ request }) {
   const form = await request.formData();
   const params = form._fields;
   const db = await connectDb();
-    try {
-        // Delete all Snippets on Database if not already empty
-        if (params.snippetCount.toString() !== '0') {
-          const deletedManySnippets = await db.models.Snippet.deleteMany();
-          // Inset Default Seed to Database
-          const insertDefaultSeedSnippets = await db.models.Snippet.insertMany(snippetSeed);
-          return redirect("/");
-        } else {
-          const insertDefaultSeedSnippets = await db.models.Snippet.insertMany(snippetSeed);
-          return redirect("/");
-        }
-      }   
-   catch (error) {
-        return json(
-        {errors: error.errors, values: Object.fromEntries(form)},
-        {status: 400}
-        )
+  try {
+    // Delete all Snippets on Database if not already empty
+    if (params.snippetCount.toString() !== "0") {
+      const deletedManySnippets = await db.models.Snippet.deleteMany();
+      // Inset Default Seed to Database
+      const insertDefaultSeedSnippets = await db.models.Snippet.insertMany(
+        snippetSeed
+      );
+      return redirect("/");
+    } else {
+      const insertDefaultSeedSnippets = await db.models.Snippet.insertMany(
+        snippetSeed
+      );
+      return redirect("/");
     }
+  } catch (error) {
+    return json(
+      { errors: error.errors, values: Object.fromEntries(form) },
+      { status: 400 }
+    );
+  }
 }
 
 export default function SeedSnippets() {
-    const snippetCount = useLoaderData();
-    const snippetJSON = snippetSeed;
-    return (
-        <Form method='POST' action='' className='grid grid-cols-1 justify-items-center bg-gradient-to-r from-indigo-500 via-blue-900 to-indigo-500 text-white rounded-lg shadow-lg p-4 mt-10'>
-          <h1 className='text-2xl mb-5'>Seeding the database</h1>
-          <h2 className='text-xl mb-10'>You currently have <b>{snippetCount}</b> snipppets in your database.</h2>
-          {snippetCount === 0 ? <>
-            <p className='mb-4 text-lg'>Would you like to repopulate your database with <b>{snippetJSON.length}</b> default snippets?</p></> : <>
-            <p className='mb-4 text-lg'>Do you want to delete them and re-seed the database with <b>{snippetJSON.length}</b> default snippets?</p>
-            <p className='text-red-500 bg-black rounded-lg p-4'>You are about to reseed your database, are you sure you want to continue? This action is irreversible.</p></> } 
-            <div id="seed-options" className='grid grid-cols-2 mt-5'>
-                <input type="hidden" id="snippetCount" name="snippetCount" value={snippetCount} />
-                <input type="submit" name="acceptSeed" id="acceptSeed" value="Accept" className="ml-3 transition hover:bg-red-600 bg-red-800  p-4 rounded-lg" />
-                <Link to="/" className="ml-3 transition hover:bg-blue-500 bg-blue-600 p-4 rounded-lg">
-                    Decline
-                </Link>
-            </div>
-        </Form>
-    )
+  const snippetCount = useLoaderData();
+  const snippetJSON = snippetSeed;
+  return (
+    <Form
+      method="POST"
+      action=""
+      className="grid grid-cols-1 justify-items-center bg-gradient-to-r from-indigo-500 via-blue-900 to-indigo-500 text-white rounded-lg shadow-lg p-4 mt-10"
+    >
+      <h1 className="text-2xl mb-5">Seeding the database</h1>
+      <h2 className="text-xl mb-10">
+        You currently have <b>{snippetCount}</b> snipppets in your database.
+      </h2>
+      {snippetCount === 0 ? (
+        <>
+          <p className="mb-4 text-lg">
+            Would you like to repopulate your database with{" "}
+            <b>{snippetJSON.length}</b> default snippets?
+          </p>
+        </>
+      ) : (
+        <>
+          <p className="mb-4 text-lg">
+            Do you want to delete them and re-seed the database with{" "}
+            <b>{snippetJSON.length}</b> default snippets?
+          </p>
+          <p className="text-red-500 bg-black rounded-lg p-4">
+            You are about to reseed your database, are you sure you want to
+            continue? This action is irreversible.
+          </p>
+        </>
+      )}
+      <div id="seed-options" className="grid grid-cols-2 mt-5">
+        <input
+          type="hidden"
+          id="snippetCount"
+          name="snippetCount"
+          value={snippetCount}
+        />
+        <input
+          type="submit"
+          name="acceptSeed"
+          id="acceptSeed"
+          value="Accept"
+          className="ml-3 transition hover:bg-red-600 bg-red-800  p-4 rounded-lg"
+        />
+        <Link
+          to="/"
+          className="ml-3 transition hover:bg-blue-500 bg-blue-600 p-4 rounded-lg"
+        >
+          Decline
+        </Link>
+      </div>
+    </Form>
+  );
 }
 
 export function CatchBoundary() {

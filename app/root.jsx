@@ -1,12 +1,11 @@
 import {
   Links,
-  Link,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "remix";
+} from "@remix-run/react";
 import styles from "~/tailwind.css";
 
 export const links = () => [
@@ -36,10 +35,16 @@ export default function App() {
           <Link to="/" className="hover:underline bg-indigo-900 p-2 rounded-lg">
             Home
           </Link>
-          <Link to="/seed" className="ml-3 hover:underline bg-red-600 p-2 rounded-lg">
+          <Link
+            to="/seed"
+            className="ml-3 hover:underline bg-red-600 p-2 rounded-lg"
+          >
             ReSeed DB
           </Link>
-          <Link to="/snippets/new" className="ml-3 hover:underline bg-indigo-600 p-2 rounded-lg">
+          <Link
+            to="/snippets/new"
+            className="ml-3 hover:underline bg-indigo-600 p-2 rounded-lg"
+          >
             New Snippet
           </Link>
         </header>
